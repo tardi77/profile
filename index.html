@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tardi77 — GitHub Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0B1120',
+            'primary-deep': '#080C17',
+            'primary-light': '#0F172A',
+            gold: '#D4AF37',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::selection { background: #D4AF37; color: #0B1120; }
+    .glass-card { background: rgba(255,255,255,0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+    .glass-nav { background: rgba(11,17,32,0.8); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .text-gold { color: #D4AF37; }
+    .bg-gold { background-color: #D4AF37; }
+    .border-gold { border-color: #D4AF37; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .glow { position: absolute; width: 800px; height: 800px; background: rgba(212,175,55,0.05); filter: blur(120px); border-radius: 50%; pointer-events: none; }
+    .contribution-cell { width: 12px; height: 12px; border-radius: 2px; transition: all 0.2s; }
+    .contribution-cell:hover { transform: scale(1.6); outline: 1px solid rgba(212,175,55,0.4); }
+    .repo-row { transition: all 0.3s ease; }
+    .repo-row:hover { background: rgba(255,255,255,0.04); transform: translateX(4px); }
+    .skill-tag { transition: all 0.3s ease; }
+    .skill-tag:hover { border-color: #D4AF37; color: #D4AF37; transform: translateY(-2px); }
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .typing-cursor::after { content: '|'; animation: blink 1s step-end infinite; color: #D4AF37; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    .float-anim { animation: float 6s ease-in-out infinite; }
+    @keyframes pulse-gold { 0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); } 70% { box-shadow: 0 0 0 10px rgba(212,175,55,0); } }
+    .pulse-gold { animation: pulse-gold 2s infinite; }
+    .stat-number { font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body class="bg-primary text-slate-100 font-sans antialiased overflow-x-hidden">
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="glass-nav fixed top-0 left-0 right-0 z-50 h-24 flex items-center">
+    <div class="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-lg bg-gold/10 border border-gold/30 flex items-center justify-center group-hover:bg-gold/20 transition-all duration-300">
+          <i data-lucide="github" class="w-5 h-5 text-gold"></i>
+        </div>
+        <span class="font-display text-xl font-medium tracking-tight">tardi77</span>
+      </a>
+      <div class="hidden md:flex items-center gap-10">
+        <a href="#about" class="text-sm font-medium tracking-wide text-slate-400 hover:text-white transition-colors duration-150">Tentang</a>
+        <a href="#repos" class="text-sm font-medium tracking-wide text-slate-400 hover:text-white transition-colors duration-150">Repositori</a>
+        <a href="#activity" class="text-sm font-medium tracking-wide text-slate-400 hover:text-white transition-colors duration-150">Aktivitas</a>
+        <a href="#skills" class="text-sm font-medium tracking-wide text-slate-400 hover:text-white transition-colors duration-150">Keahlian</a>
+        <a href="https://github.com/tardi77" target="_blank" class="bg-gold text-primary px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-white hover:-translate-y-1 transition-all duration-300">
+          Lihat GitHub
+        </a>
+      </div>
+      <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center hover:border-gold/30 transition-colors">
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="fixed inset-0 z-40 bg-primary/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 hidden">
+    <a href="#about" class="text-2xl font-display text-slate-300 hover:text-gold transition-colors mobile-link">Tentang</a>
+    <a href="#repos" class="text-2xl font-display text-slate-300 hover:text-gold transition-colors mobile-link">Repositori</a>
+    <a href="#activity" class="text-2xl font-display text-slate-300 hover:text-gold transition-colors mobile-link">Aktivitas</a>
+    <a href="#skills" class="text-2xl font-display text-slate-300 hover:text-gold transition-colors mobile-link">Keahlian</a>
+    <a href="https://github.com/tardi77" target="_blank" class="mt-4 bg-gold text-primary px-8 py-3 rounded-full text-sm font-medium uppercase tracking-widest hover:bg-white transition-all duration-300">
+      Lihat GitHub
+    </a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+    <div class="glow top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute top-32 right-20 w-64 h-64 border border-gold/10 rounded-full float-anim" style="animation-delay: -2s;"></div>
+    <div class="absolute bottom-40 left-16 w-40 h-40 border border-gold/5 rounded-full float-anim" style="animation-delay: -4s;"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <!-- Avatar -->
+      <div class="mb-8 flex justify-center">
+        <div class="relative">
+          <div class="w-32 h-32 rounded-full border-2 border-gold/30 p-1 pulse-gold">
+            <img src="https://picsum.photos/seed/tardi77-avatar/256/256.jpg" alt="tardi77" class="w-full h-full rounded-full object-cover">
+          </div>
+          <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-green-500 rounded-full border-4 border-primary flex items-center justify-center">
+            <i data-lucide="check" class="w-3 h-3 text-white"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 glass-card rounded-full px-4 py-1.5 mb-6">
+        <span class="w-2 h-2 rounded-full bg-gold"></span>
+        <span class="text-xs font-medium tracking-wide text-slate-400 uppercase">Available for collaboration</span>
+      </div>
+
+      <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-[1.1] mb-6">
+        <span class="text-gold">tardi</span><span class="text-slate-500">77</span>
+      </h1>
+
+      <p class="text-lg md:text-xl font-light text-slate-400 max-w-2xl mx-auto mb-4 leading-relaxed">
+        Developer & open-source enthusiast. Membangun solusi digital yang 
+        <span class="text-slate-200">elegan</span>, 
+        <span class="text-slate-200">efisien</span>, dan 
+        <span class="text-slate-200">berdampak</span>.
+      </p>
+
+      <div class="flex items-center justify-center gap-2 text-sm text-slate-500 mb-10">
+        <i data-lucide="map-pin" class="w-4 h-4"></i>
+        <span>Indonesia</span>
+        <span class="mx-2 text-slate-700">•</span>
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span>Bergabung sejak 2020</span>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="flex items-center justify-center gap-8 md:gap-16 mb-12">
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-display font-medium text-white stat-number" data-count="42">0</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500 mt-1">Repositori</div>
+        </div>
+        <div class="w-px h-12 bg-white/10"></div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-display font-medium text-white stat-number" data-count="128">0</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500 mt-1">Kontribusi</div>
+        </div>
+        <div class="w-px h-12 bg-white/10"></div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-display font-medium text-white stat-number" data-count="15">0</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500 mt-1">Stars</div>
+        </div>
+        <div class="w-px h-12 bg-white/10"></div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-display font-medium text-white stat-number" data-count="8">0</div>
+          <div class="text-xs uppercase tracking-widest text-slate-500 mt-1">Followers</div>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://github.com/tardi77" target="_blank" class="group bg-gold text-primary px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-white hover:-translate-y-1 transition-all duration-300 flex items-center gap-3">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          Kunjungi Profil
+          <i data-lucide="arrow-up-right" class="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
+        </a>
+        <a href="#repos" class="group border border-white/10 text-slate-300 px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:border-gold/30 hover:text-gold transition-all duration-300 flex items-center gap-3">
+          Lihat Proyek
+          <i data-lucide="arrow-down" class="w-3 h-3 group-hover:translate-y-0.5 transition-transform"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+      <span class="text-[10px] uppercase tracking-[0.2em] text-slate-600">Scroll</span>
+      <i data-lucide="chevron-down" class="w-4 h-4 text-slate-600"></i>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="relative py-32 overflow-hidden">
+    <div class="glow -left-96 top-0"></div>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 mb-6">
+            <span class="w-8 h-px bg-gold"></span>
+            <span class="text-xs font-medium uppercase tracking-widest text-gold">Tentang Saya</span>
+          </div>
+          <h2 class="font-display text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] mb-6">
+            Kode adalah <span class="italic text-gold">cara</span> saya<br>berbicara dengan dunia
+          </h2>
+          <p class="text-lg font-light text-slate-400 leading-relaxed mb-6">
+            Sebagai seorang developer yang berbasis di Indonesia, saya percaya bahwa teknologi terbaik adalah yang tidak terlihat — yang bekerja di balik layar dan membuat hidup orang lebih mudah.
+          </p>
+          <p class="text-lg font-light text-slate-400 leading-relaxed mb-8">
+            Saya aktif berkontribusi di GitHub dengan berbagai proyek mulai dari web development, scripting otomasi, hingga eksplorasi teknologi baru. Setiap baris kode adalah kesempatan untuk belajar sesuatu yang baru.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="glass-card px-4 py-2 rounded-full text-xs text-slate-300 flex items-center gap-2">
+              <i data-lucide="code-2" class="w-3 h-3 text-gold"></i> Clean Code
+            </span>
+            <span class="glass-card px-4 py-2 rounded-full text-xs text-slate-300 flex items-center gap-2">
+              <i data-lucide="git-branch" class="w-3 h-3 text-gold"></i> Version Control
+            </span>
+            <span class="glass-card px-4 py-2 rounded-full text-xs text-slate-300 flex items-center gap-2">
+              <i data-lucide="heart" class="w-3 h-3 text-gold"></i> Open Source
+            </span>
+          </div>
+        </div>
+        <div class="fade-up" style="transition-delay: 0.2s;">
+          <div class="relative">
+            <div class="absolute -inset-4 bg-gradient-to-br from-gold/10 to-transparent rounded-2xl blur-2xl"></div>
+            <div class="relative glass-card rounded-2xl p-8 space-y-6">
+              <!-- Terminal Header -->
+              <div class="flex items-center gap-2 mb-4">
+                <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
+                <span class="ml-3 text-xs text-slate-500 font-mono">~/tardi77</span>
+              </div>
+              <!-- Terminal Content -->
+              <div class="font-mono text-sm space-y-3">
+                <div class="flex gap-3">
+                  <span class="text-gold">$</span>
+                  <span class="text-slate-300 typing-cursor">gh profile view tardi77</span>
+                </div>
+                <div class="text-slate-500 pl-4 space-y-1">
+                  <p>┌─────────────────────────────┐</p>
+                  <p>│ <span class="text-white">tardi77</span>                      │</p>
+                  <p>│ 📍 Indonesia                  │</p>
+                  <p>│ 📦 42 repositori              │</p>
+                  <p>│ ⭐ 15 stars diterima          │</p>
+                  <p>│ 🔀 128 kontribusi tahun ini   │</p>
+                  <p>└─────────────────────────────┘</p>
+                </div>
+                <div class="flex gap-3">
+                  <span class="text-gold">$</span>
+                  <span class="text-slate-500">echo $MOTTO</span>
+                </div>
+                <div class="text-slate-300 pl-4">"Keep shipping, keep learning."</div>
+                <div class="flex gap-3">
+                  <span class="text-gold">$</span>
+                  <span class="text-slate-600 animate-pulse">_</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REPOSITORIES ===== -->
+  <section id="repos" class="relative py-32 bg-primary-deep">
+    <div class="glow right-0 top-1/3"></div>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 mb-6">
+          <span class="w-8 h-px bg-gold"></span>
+          <span class="text-xs font-medium uppercase tracking-widest text-gold">Repositori</span>
+          <span class="w-8 h-px bg-gold"></span>
+        </div>
+        <h2 class="font-display text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] mb-4">
+          Proyek <span class="italic text-gold">Pilihan</span>
+        </h2>
+        <p class="text-lg font-light text-slate-400 max-w-2xl mx-auto">
+          Koleksi repositori yang menunjukkan perjalanan dan ekspansi keahlian saya di berbagai teknologi.
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="flex items-center justify-center gap-2 mb-12 fade-up" style="transition-delay: 0.1s;">
+        <button class="repo-filter active px-5 py-2 rounded-full text-xs font-medium uppercase tracking-widest transition-all duration-300 bg-gold text-primary" data-filter="all">Semua</button>
+        <button class="repo-filter px-5 py-2 rounded-full text-xs font-medium uppercase tracking-widest transition-all duration-300 border border-white/10 text-slate-400 hover:border-gold/30 hover:text-gold" data-filter="javascript">JavaScript</button>
+        <button class="repo-filter px-5 py-2 rounded-full text-xs font-medium uppercase tracking-widest transition-all duration-300 border border-white/10 text-slate-400 hover:border-gold/30 hover:text-gold" data-filter="python">Python</button>
+        <button class="repo-filter px-5 py-2 rounded-full text-xs font-medium uppercase tracking-widest transition-all duration-300 border border-white/10 text-slate-400 hover:border-gold/30 hover:text-gold" data-filter="html">HTML/CSS</button>
+      </div>
+
+      <!-- Repo List -->
+      <div class="space-y-3 fade-up" style="transition-delay: 0.2s;" id="repoList">
+
+        <!-- Repo 1 -->
+        <div class="repo-row glass-card rounded-xl p-6 cursor-pointer" data-lang="javascript" onclick="window.open('https://github.com/tardi77','_blank')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="folder-git-2" class="w-5 h-5 text-gold"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-3 mb-1">
+                  <h3 class="text-white font-medium text-lg">auto-deploy-script</h3>
+                  <span class="text-[10px] uppercase tracking-widest text-gold bg-gold/10 px-2 py-0.5 rounded-full">Public</span>
+                </div>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Automated deployment script untuk CI/CD pipeline. Mendukung multi-environment dan rollback otomatis.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="flex items-center gap-1.5 text-xs text-slate-500">
+                    <span class="w-3 h-3 rounded-full bg-yellow-400"></span> JavaScript
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="star" class="w-3 h-3"></i> 5
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="git-fork" class="w-3 h-3"></i> 2
+                  </span>
+                  <span class="text-xs text-slate-600">Diperbarui 3 hari lalu</span>
+                </div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-600 flex-shrink-0"></i>
+          </div>
+        </div>
+
+        <!-- Repo 2 -->
+        <div class="repo-row glass-card rounded-xl p-6 cursor-pointer" data-lang="python" onclick="window.open('https://github.com/tardi77','_blank')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="folder-git-2" class="w-5 h-5 text-blue-400"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-3 mb-1">
+                  <h3 class="text-white font-medium text-lg">web-scraper-utils</h3>
+                  <span class="text-[10px] uppercase tracking-widest text-gold bg-gold/10 px-2 py-0.5 rounded-full">Public</span>
+                </div>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Koleksi utility untuk web scraping dengan Python. Termasuk rate limiter, proxy rotator, dan parser HTML.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="flex items-center gap-1.5 text-xs text-slate-500">
+                    <span class="w-3 h-3 rounded-full bg-blue-400"></span> Python
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="star" class="w-3 h-3"></i> 4
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="git-fork" class="w-3 h-3"></i> 1
+                  </span>
+                  <span class="text-xs text-slate-600">Diperbarui 1 minggu lalu</span>
+                </div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-600 flex-shrink-0"></i>
+          </div>
+        </div>
+
+        <!-- Repo 3 -->
+        <div class="repo-row glass-card rounded-xl p-6 cursor-pointer" data-lang="html" onclick="window.open('https://github.com/tardi77','_blank')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="folder-git-2" class="w-5 h-5 text-orange-400"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-3 mb-1">
+                  <h3 class="text-white font-medium text-lg">landing-page-template</h3>
+                  <span class="text-[10px] uppercase tracking-widest text-gold bg-gold/10 px-2 py-0.5 rounded-full">Public</span>
+                </div>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Template landing page modern dengan Tailwind CSS. Responsif, dark mode, dan siap dipakai.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="flex items-center gap-1.5 text-xs text-slate-500">
+                    <span class="w-3 h-3 rounded-full bg-orange-400"></span> HTML
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="star" class="w-3 h-3"></i> 3
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="git-fork" class="w-3 h-3"></i> 0
+                  </span>
+                  <span class="text-xs text-slate-600">Diperbarui 2 minggu lalu</span>
+                </div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-600 flex-shrink-0"></i>
+          </div>
+        </div>
+
+        <!-- Repo 4 -->
+        <div class="repo-row glass-card rounded-xl p-6 cursor-pointer" data-lang="python" onclick="window.open('https://github.com/tardi77','_blank')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="folder-git-2" class="w-5 h-5 text-blue-400"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-3 mb-1">
+                  <h3 class="text-white font-medium text-lg">discord-bot-framework</h3>
+                  <span class="text-[10px] uppercase tracking-widest text-gold bg-gold/10 px-2 py-0.5 rounded-full">Public</span>
+                </div>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Framework ringan untuk membangun Discord bot. Dilengkapi command handler, event system, dan modul database.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="flex items-center gap-1.5 text-xs text-slate-500">
+                    <span class="w-3 h-3 rounded-full bg-blue-400"></span> Python
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="star" class="w-3 h-3"></i> 2
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="git-fork" class="w-3 h-3"></i> 1
+                  </span>
+                  <span class="text-xs text-slate-600">Diperbarui 1 bulan lalu</span>
+                </div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-600 flex-shrink-0"></i>
+          </div>
+        </div>
+
+        <!-- Repo 5 -->
+        <div class="repo-row glass-card rounded-xl p-6 cursor-pointer" data-lang="javascript" onclick="window.open('https://github.com/tardi77','_blank')">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="folder-git-2" class="w-5 h-5 text-gold"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-3 mb-1">
+                  <h3 class="text-white font-medium text-lg">cli-task-manager</h3>
+                  <span class="text-[10px] uppercase tracking-widest text-gold bg-gold/10 px-2 py-0.5 rounded-full">Public</span>
+                </div>
+                <p class="text-sm text-slate-400 font-light leading-relaxed">Task manager berbasis CLI dengan Node.js. Mendukung tagging, prioritas, dan export ke JSON/CSV.</p>
+                <div class="flex items-center gap-4 mt-3">
+                  <span class="flex items-center gap-1.5 text-xs text-slate-500">
+                    <span class="w-3 h-3 rounded-full bg-yellow-400"></span> JavaScript
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="star" class="w-3 h-3"></i> 1
+                  </span>
+                  <span class="flex items-center gap-1 text-xs text-slate-500">
+                    <i data-lucide="git-fork" class="w-3 h-3"></i> 0
+                  </span>
+                  <span class="text-xs text-slate-600">Diperbarui 2 bulan lalu</span>
+                </div>
+              </div>
+            </div>
+            <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-600 flex-shrink-0"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-12 fade-up" style="transition-delay: 0.3s;">
+        <a href="https://github.com/tardi77?tab=repositories" target="_blank" class="inline-flex items-center gap-2 border border-white/10 text-slate-400 px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:border-gold/30 hover:text-gold transition-all duration-300">
+          Lihat Semua Repositori
+          <i data-lucide="arrow-right" class="w-3 h-3"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ACTIVITY / CONTRIBUTION GRAPH ===== -->
+  <section id="activity" class="relative py-32">
+    <div class="glow left-1/2 -translate-x-1/2 top-0"></div>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 mb-6">
+          <span class="w-8 h-px bg-gold"></span>
+          <span class="text-xs font-medium uppercase tracking-widest text-gold">Aktivitas</span>
+          <span class="w-8 h-px bg-gold"></span>
+        </div>
+        <h2 class="font-display text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] mb-4">
+          Peta <span class="italic text-gold">Kontribusi</span>
+        </h2>
+        <p class="text-lg font-light text-slate-400 max-w-2xl mx-auto">
+          Konsistensi adalah kunci. Setiap titik mewakili sehari kerja dan belajar.
+        </p>
+      </div>
+
+      <!-- Contribution Graph -->
+      <div class="fade-up glass-card rounded-2xl p-6 md:p-8 overflow-x-auto no-scrollbar" style="transition-delay: 0.1s;">
+        <div class="min-w-[720px]">
+          <!-- Month Labels -->
+          <div class="flex gap-[3px] mb-2 pl-8">
+            <span class="text-[10px] text-slate-600 w-[52px]">Jan</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Feb</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Mar</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Apr</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Mei</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Jun</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Jul</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Agu</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Sep</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Okt</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Nov</span>
+            <span class="text-[10px] text-slate-600 w-[52px]">Des</span>
+          </div>
+          <!-- Grid -->
+          <div class="flex gap-[3px]" id="contributionGrid">
+            <!-- Day labels -->
+            <div class="flex flex-col gap-[3px] mr-2">
+              <span class="text-[10px] text-slate-600 h-[12px] leading-none flex items-center">Sen</span>
+              <span class="text-[10px] text-transparent h-[12px]">.</span>
+              <span class="text-[10px] text-slate-600 h-[12px] leading-none flex items-center">Rab</span>
+              <span class="text-[10px] text-transparent h-[12px]">.</span>
+              <span class="text-[10px] text-slate-600 h-[12px] leading-none flex items-center">Jum</span>
+              <span class="text-[10px] text-transparent h-[12px]">.</span>
+              <span class="text-[10px] text-slate-600 h-[12px] leading-none flex items-center">Min</span>
+            </div>
+            <!-- Cells generated by JS -->
+            <div class="flex gap-[3px]" id="cellsContainer"></div>
+          </div>
+          <!-- Legend -->
+          <div class="flex items-center justify-end gap-2 mt-4">
+            <span class="text-[10px] text-slate-600">Sedikit</span>
+            <div class="contribution-cell bg-white/[0.03] border border-white/5"></div>
+            <div class="contribution-cell bg-gold/20"></div>
+            <div class="contribution-cell bg-gold/40"></div>
+            <div class="contribution-cell bg-gold/70"></div>
+            <div class="contribution-cell bg-gold"></div>
+            <span class="text-[10px] text-slate-600">Banyak</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="grid md:grid-cols-3 gap-6 mt-8">
+        <div class="glass-card rounded-xl p-6 fade-up" style="transition-delay: 0.2s;">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center">
+              <i data-lucide="git-commit" class="w-4 h-4 text-green-400"></i>
+            </div>
+            <span class="text-sm text-slate-300 font-medium">Commit Terakhir</span>
+          </div>
+          <p class="text-sm text-slate-400 font-light mb-1">fix: resolve timeout issue on deploy</p>
+          <p class="text-xs text-slate-600">auto-deploy-script • 3 jam lalu</p>
+        </div>
+        <div class="glass-card rounded-xl p-6 fade-up" style="transition-delay: 0.3s;">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center">
+              <i data-lucide="git-pull-request" class="w-4 h-4 text-purple-400"></i>
+            </div>
+            <span class="text-sm text-slate-300 font-medium">Pull Request</span>
+          </div>
+          <p class="text-sm text-slate-400 font-light mb-1">feat: add proxy rotation module</p>
+          <p class="text-xs text-slate-600">web-scraper-utils • 1 hari lalu</p>
+        </div>
+        <div class="glass-card rounded-xl p-6 fade-up" style="transition-delay: 0.4s;">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center">
+              <i data-lucide="star" class="w-4 h-4 text-gold"></i>
+            </div>
+            <span class="text-sm text-slate-300 font-medium">Star Baru</span>
+          </div>
+          <p class="text-sm text-slate-400 font-light mb-1">landing-page-template mendapat ⭐</p>
+          <p class="text-xs text-slate-600">Dari kontributor anonim • 5 hari lalu</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="relative py-32 bg-primary-deep">
+    <div class="glow right-0 bottom-0"></div>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16 fade-up">
+        <div class="inline-flex items-center gap-2 mb-6">
+          <span class="w-8 h-px bg-gold"></span>
+          <span class="text-xs font-medium uppercase tracking-widest text-gold">Keahlian</span>
+          <span class="w-8 h-px bg-gold"></span>
+        </div>
+        <h2 class="font-display text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] mb-4">
+          Tech <span class="italic text-gold">Stack</span>
+        </h2>
+        <p class="text-lg font-light text-slate-400 max-w-2xl mx-auto">
+          Bahasa, framework, dan tools yang saya gunakan sehari-hari.
+        </p>
+      </div>
+
+      <!-- Skills Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 fade-up" style="transition-delay: 0.1s;">
+        <!-- Skill Cards -->
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-yellow-400" viewBox="0 0 24 24" fill="currentColor"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.405-.6-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">JavaScript</h4>
+          <p class="text-xs text-slate-500">ES6+ / Node.js</p>
+        </div>
+
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-blue-400" viewBox="0 0 24 24" fill="currentColor"><path d="M14.31.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.83l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v3.54l.05.63.13.56.21.46.26.38.3.31.33.24.35.19.35.13.33.1.3.07.26.04.21.02.13-.01h5.6l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14v-1.4h-4.79v-1.59h6.78l.01.14.04.23.07.3.12.35.18.37.24.36.3.33.38.27.47.2.56.12.67.04h2.1l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14v-3.54l-.05-.63-.13-.56-.21-.46-.26-.38-.3-.31-.33-.25-.35-.19-.35-.14-.33-.1-.3-.07-.26-.04-.21-.02-.13.01h-5.6l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v1.4h4.79v1.59H6.66l-.01-.14-.04-.23-.07-.3-.12-.35-.18-.37-.24-.36-.3-.33-.38-.27-.47-.2-.56-.12-.67-.04h-2.1l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v3.54l.05.63.13.56.21.46.26.38.3.31.33.24.35.19.35.13.33.1.3.07.26.04.21.02.13-.01h5.6l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14V8.5l-.05-.63-.13-.55-.21-.47-.26-.38-.3-.31-.33-.24-.35-.19-.35-.14-.33-.1-.3-.07-.26-.04-.21-.02-.13.01h-2.1l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v1.4h4.79V5.28H0v13.67l.05.63.13.56.21.46.26.38.3.31.33.24.35.19.35.13.33.1.3.07.26.04.21.02.13-.01h2.1l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14v-1.4H4.43v-1.59h6.78l.01.14.04.23.07.3.12.35.18.37.24.36.3.33.38.27.47.2.56.12.67.04h2.1l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14v-3.54l-.05-.63-.13-.56-.21-.46-.26-.38-.3-.31-.33-.24-.35-.19-.35-.14-.33-.1-.3-.07-.26-.04-.21-.02-.13.01h-5.6l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v1.4h4.79v1.59h-6.78l-.01-.14-.04-.23-.07-.3-.12-.35-.18-.37-.24-.36-.3-.33-.38-.27-.47-.2-.56-.12-.67-.04h-2.1l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v3.54l.05.63.13.56.21.46.26.38.3.31.33.24.35.19.35.13.33.1.3.07.26.04.21.02.13-.01h5.6l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14V8.5l-.05-.63-.13-.55-.21-.47-.26-.38-.3-.31-.33-.24-.35-.19-.35-.14-.33-.1-.3-.07-.26-.04-.21-.02-.13.01H8.83l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v1.4h4.79V5.28H0V18.9l.05.63.13.56.21.46.26.38.3.31.33.24.35.19.35.13.33.1.3.07.26.04.21.02.13-.01h2.1l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14v-1.4H4.43v-1.59h6.78l.01.14.04.23.07.3.12.35.18.37.24.36.3.33.38.27.47.2.56.12.67.04h2.1l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14v-3.54l-.05-.63-.13-.56-.21-.46-.26-.38-.3-.31-.33-.24-.35-.19-.35-.14-.33-.1-.3-.07-.26-.04-.21-.02-.13.01h-5.6l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v1.4h4.79v1.59h-6.78l-.01-.14-.04-.23-.07-.3-.12-.35-.18-.37-.24-.36-.3-.33-.38-.27-.47-.2-.56-.12-.67-.04h-2.1l-.67.04-.56.12-.47.2-.38.27-.3.33-.24.36-.18.37-.12.35-.07.3-.04.23-.01.14v3.54l.05.63.13.56.21.46.26.38.3.31.33.24.35.19.35.13.33.1.3.07.26.04.21.02.13-.01h5.6l.67-.04.56-.12.47-.2.38-.27.3-.33.24-.36.18-.37.12-.35.07-.3.04-.23.01-.14V8.5l-.05-.63-.13-.55-.21-.47-.26-.38-.3-.31-.33-.24-.35-.19-.35-.14-.33-.1-.3-.07-.26-.04-.21-.02-.13.01h-2.1V.18z"/></svg>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">Python</h4>
+          <p class="text-xs text-slate-500">Scripting / Bot</p>
+        </div>
+
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.071-.757.529-5.903H5.845l1.362 15.358 4.77 1.326 4.814-1.327.537-6.032H9.592l-.061.653z"/></svg>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">HTML / CSS</h4>
+          <p class="text-xs text-slate-500">Tailwind / Sass</p>
+        </div>
+
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="git-branch" class="w-7 h-7 text-red-400"></i>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">Git</h4>
+          <p class="text-xs text-slate-500">GitHub / CLI</p>
+        </div>
+
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="terminal" class="w-7 h-7 text-cyan-400"></i>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">Bash</h4>
+          <p class="text-xs text-slate-500">Linux / Shell</p>
+        </div>
+
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="database" class="w-7 h-7 text-green-400"></i>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">Database</h4>
+          <p class="text-xs text-slate-500">SQLite / MySQL</p>
+        </div>
+
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="layout" class="w-7 h-7 text-pink-400"></i>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">REST API</h4>
+          <p class="text-xs text-slate-500">Express / FastAPI</p>
+        </div>
+
+        <div class="skill-tag glass-card rounded-xl p-6 text-center cursor-default border border-transparent">
+          <div class="w-12 h-12 rounded-xl bg-violet-500/10 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="container" class="w-7 h-7 text-violet-400"></i>
+          </div>
+          <h4 class="text-sm font-medium text-white mb-1">DevOps</h4>
+          <p class="text-xs text-slate-500">Docker / CI-CD</p>
+        </div>
+      </div>
+
+      <!-- Language Breakdown -->
+      <div class="mt-16 glass-card rounded-2xl p-8 fade-up" style="transition-delay: 0.2s;">
+        <h3 class="text-lg font-medium text-white mb-6 flex items-center gap-3">
+          <i data-lucide="pie-chart" class="w-5 h-5 text-gold"></i>
+          Distribusi Bahasa
+        </h3>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-slate-300 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-yellow-400"></span> JavaScript
+              </span>
+              <span class="text-slate-500">42%</span>
+            </div>
+            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full language-bar" data-width="42" style="width: 0%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-slate-300 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-blue-400"></span> Python
+              </span>
+              <span class="text-slate-500">31%</span>
+            </div>
+            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full language-bar" data-width="31" style="width: 0%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-slate-300 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-orange-400"></span> HTML / CSS
+              </span>
+              <span class="text-slate-500">18%</span>
+            </div>
+            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full language-bar" data-width="18" style="width: 0%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-sm mb-2">
+              <span class="text-slate-300 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-slate-400"></span> Lainnya
+              </span>
+              <span class="text-slate-500">9%</span>
+            </div>
+            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-slate-500 to-slate-400 rounded-full language-bar" data-width="9" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="relative py-32 overflow-hidden">
+    <div class="glow left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"></div>
+    <div class="max-w-3xl mx-auto px-6 text-center fade-up">
+      <div class="inline-flex items-center gap-2 mb-6">
+        <span class="w-8 h-px bg-gold"></span>
+        <span class="text-xs font-medium uppercase tracking-widest text-gold">Mari Terhubung</span>
+        <span class="w-8 h-px bg-gold"></span>
+      </div>
+      <h2 class="font-display text-4xl md:text-5xl font-medium tracking-tight leading-[1.1] mb-6">
+        Tertarik untuk <span class="italic text-gold">berkolaborasi</span>?
+      </h2>
+      <p class="text-lg font-light text-slate-400 leading-relaxed mb-10">
+        Saya selalu terbuka untuk diskusi proyek baru, ide kreatif, atau sekadar ngobrol tentang teknologi. Jangan ragu untuk menghubungi saya melalui GitHub.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://github.com/tardi77" target="_blank" class="group bg-gold text-primary px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:bg-white hover:-translate-y-1 transition-all duration-300 flex items-center gap-3">
+          <i data-lucide="github" class="w-4 h-4"></i>
+          Follow di GitHub
+        </a>
+        <a href="https://github.com/tardi77/issues" target="_blank" class="group border border-white/10 text-slate-300 px-8 py-4 rounded-full text-xs font-medium uppercase tracking-widest hover:border-gold/30 hover:text-gold transition-all duration-300 flex items-center gap-3">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          Buka Issue
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="border-t border-white/5 py-12 bg-primary-deep">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center">
+            <i data-lucide="github" class="w-4 h-4 text-gold"></i>
+          </div>
+          <span class="font-display text-lg">tardi77</span>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="https://github.com/tardi77" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-gold/30 hover:text-gold text-slate-500 transition-all duration-300">
+            <i data-lucide="github" class="w-4 h-4"></i>
+          </a>
+          <a href="https://github.com/tardi77?tab=stars" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-gold/30 hover:text-gold text-slate-500 transition-all duration-300">
+            <i data-lucide="star" class="w-4 h-4"></i>
+          </a>
+          <a href="https://github.com/tardi77?tab=followers" target="_blank" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-gold/30 hover:text-gold text-slate-500 transition-all duration-300">
+            <i data-lucide="users" class="w-4 h-4"></i>
+          </a>
+        </div>
+        <p class="text-xs text-slate-600">
+          © 2025 tardi77. Dibuat dengan <span class="text-gold">♥</span> dan kode.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button id="backToTop" class="fixed bottom-8 right-8 w-12 h-12 rounded-full bg-gold text-primary flex items-center justify-center shadow-2xl opacity-0 translate-y-4 pointer-events-none transition-all duration-300 hover:bg-white hover:-translate-y-1 z-50">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </button>
+
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // ===== MOBILE MENU =====
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+    mobileMenuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('hidden', !menuOpen);
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // ===== STAT COUNTER ANIMATION =====
+    function animateCounters() {
+      document.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseInt(el.dataset.count);
+        const duration = 2000;
+        const start = performance.now();
+        function update(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 4);
+          el.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+      });
+    }
+
+    // ===== CONTRIBUTION GRAPH =====
+    function generateContribGrid() {
+      const container = document.getElementById('cellsContainer');
+      const weeks = 52;
+      const days = 7;
+      const levels = [0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 3, 1, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 1, 3, 2, 1, 0, 0, 0, 0, 1, 0, 2, 3, 4, 2, 1, 0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 0, 1, 0, 0, 0, 2, 1, 0, 0, 0, 0, 3, 4, 3, 2, 1, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 2, 1, 0, 0, 0, 1, 0, 0, 2, 3, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 3, 2, 4, 3, 1, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 1, 3, 2, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 2, 3, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 3, 4, 3, 2, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 3, 4, 2, 1, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 1, 0, 0, 0, 0, 0, 1, 2, 3, 4, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 1, 0, 0, 0, 0, 0, 1, 0, 0, 2, 3, 4, 2, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 3, 2, 1, 0, 0, 0, 0, 0, 1, 0, 2, 3, 4, 3, 2, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 2, 1, 0, 0, 0, 0, 3, 4, 2, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 2, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 3, 2, 4, 1, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 4, 3, 2, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 2, 3, 4, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 3, 2, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 1, 3, 4, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 3, 1, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 3, 4, 2, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 2, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 2, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 3, 2, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 3, 4, 2, 1, 0, 0, 0, 0, 0, 1, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4, 3, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 3, 1, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 1, 3, 4, 2];
+      
+      const colors = [
+        'bg-white/[0.03] border border-white/5',
+        'bg-gold/20',
+        'bg-gold/40',
+        'bg-gold/70',
+        'bg-gold'
+      ];
+      
+      for (let w = 0; w < weeks; w++) {
+        const col = document.createElement('div');
+        col.className = 'flex flex-col gap-[3px]';
+        for (let d = 0; d < days; d++) {
+          const idx = w * days + d;
+          const level = levels[idx] || 0;
+          const cell = document.createElement('div');
+          cell.className = `contribution-cell ${colors[level]}`;
+          cell.title = `${level} kontribusi`;
+          col.appendChild(cell);
+        }
+        container.appendChild(col);
+      }
+    }
+    generateContribGrid();
+
+    // ===== REPO FILTER =====
+    document.querySelectorAll('.repo-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.repo-filter').forEach(b => {
+          b.classList.remove('bg-gold', 'text-primary');
+          b.classList.add('border', 'border-white/10', 'text-slate-400');
+        });
+        btn.classList.add('bg-gold', 'text-primary');
+        btn.classList.remove('border', 'border-white/10', 'text-slate-400');
+
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('#repoList .repo-row').forEach(row => {
+          if (filter === 'all' || row.dataset.lang === filter) {
+            row.style.display = '';
+            row.style.opacity = '0';
+            row.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+              row.style.transition = 'all 0.4s ease';
+              row.style.opacity = '1';
+              row.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // ===== SCROLL ANIMATIONS =====
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Animate language bars
+          entry.target.querySelectorAll('.language-bar').forEach(bar => {
+            setTimeout(() => {
+              bar.style.transition = 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+              bar.style.width = bar.dataset.width + '%';
+            }, 300);
+          });
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ===== COUNTER TRIGGER =====
+    let countersAnimated = false;
+    const counterObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !countersAnimated) {
+        countersAnimated = true;
+        animateCounters();
+      }
+    }, { threshold: 0.5 });
+    document.querySelector('.stat-number')?.parentElement?.parentElement && 
+      counterObserver.observe(document.querySelector('.stat-number').parentElement.parentElement);
+
+    // ===== BACK TO TOP =====
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 600) {
+        backToTop.style.opacity = '1';
+        backToTop.style.transform = 'translateY(0)';
+        backToTop.style.pointerEvents = 'auto';
+      } else {
+        backToTop.style.opacity = '0';
+        backToTop.style.transform = 'translateY(1rem)';
+        backToTop.style.pointerEvents = 'none';
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== NAV SCROLL EFFECT =====
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        nav.style.borderBottomColor = 'rgba(255,255,255,0.08)';
+      } else {
+        nav.style.borderBottomColor = 'rgba(255,255,255,0.05)';
+      }
+    });
+  </script>
+</body>
+</html>
